@@ -74,7 +74,15 @@ def pullsearch(comicapi, comicquery, offset, type):
         logger.warn('Error fetching data from ComicVine: %s' % (e))
         return
 
-    dom = parseString(r.content) #(data)
+    try:
+        dom = parseString(r.content) #(data)
+    except Exception, e:
+        if u'<title>Abnormal Traffic Detected' in r.content:
+            logger.warn("Warning -- ComicVine has banned this server's IP address for exceeding the API rate limit.")
+        else:
+            logger.warn('While parsing data from ComicVine, got exception: %s for data: %s' % (str(e), r.content))
+        return None
+
     return dom
 
 def findComic(name, mode, issue, limityear=None, type=None):
