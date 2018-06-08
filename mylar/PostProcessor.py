@@ -1950,7 +1950,7 @@ class PostProcessor(object):
                                                "annchk":      annchk})
                     return self.queue.put(self.valreturn)
                 elif pcheck.startswith('file not found'):
-                    filename_in_error = os.path.split(pcheck, '||')[1]
+                    filename_in_error = os.path.split(pcheck)[1]
                     self._log("The file cannot be found in the location provided [" + filename_in_error + "]. Please verify it exists, and re-run if necessary. Aborting.")
                     logger.error(module + ' The file cannot be found in the location provided [' + filename_in_error + ']. Please verify it exists, and re-run if necessary. Aborting')
                     self.failed_files +=1
